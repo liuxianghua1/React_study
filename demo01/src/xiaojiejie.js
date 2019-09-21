@@ -22,17 +22,20 @@ class Xiaojiejie extends Component {
                 {/* 11 */}
                 <div>
                     <label htmlFor="demo">增加服务</label>
-                    <input id="demo" className="input" type="text" value={this.state.inputValue} onChange={this.inputChange.bind(this)} 
-                    
+                    <input id="demo" className="input" type="text" value={this.state.inputValue} onChange={this.inputChange.bind(this)}
+                        ref={input => this.input = input}
                     />
                     <button onClick={this.addList.bind(this)}>增加服务</button>
                 </div>
-                <ul>
+                <ul ref={ul => this.ul = ul}>
                     {
                         this.state.list.map((item, i) => {
                             return (
-                                <XiaojiejieItem i={i} content={item} key={i+item}
-                                dels={this.deleteItem.bind(this)}
+                                <XiaojiejieItem i={i} content={item} key={i + item}
+                                    dels={this.deleteItem.bind(this)}
+                                // avname = '很开心'
+                                // list={this.state.list}
+                                // 单项数据流只可以发送数据 不可以更改
                                 />
                             )
                         })
@@ -46,7 +49,8 @@ class Xiaojiejie extends Component {
         // this.state.inputValue +=e.target.value 这样是不行的 会报错 this的指向是undefined
         // console.log(this); 我们使用了bind改变了指向的this
         this.setState({
-            inputValue: e.target.value
+            // inputValue: e.target.value
+            inputValue: this.input.value
         })
     }
     //添加方法
@@ -54,6 +58,8 @@ class Xiaojiejie extends Component {
         this.setState({
             list: [...this.state.list, this.state.inputValue],
             inputValue: ''
+        }, () => {
+            console.log(this.ul.querySelectorAll('li').length);
         })
     }
 
