@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios';
 import './style.css'
 import XiaojiejieItem from './XiaojiejieItem'
+import Boss from './Boss'
 /* {/* 
                                 <li key={i + item} onClick={this.deleteItem.bind(this, i)} dangerouslySetInnerHTML={{ __html: item }}>
                                     dangerouslySetInnerHTML={{__html: item}}
@@ -20,15 +21,15 @@ class Xiaojiejie extends Component {
 
     componentDidMount() {
         axios.get('http://rap2api.taobao.org/app/mock/231871/list')
-        .then(res => {
-            console.log(res)
-            this.setState({
-                demo: res.data.book
-            })
-        }
-        ).catch(err => console.log('获取失败' +err)
-        )
-        
+            .then(res => {
+                console.log(res)
+                this.setState({
+                    demo: res.data.book
+                })
+            }
+            ).catch(err => console.log('获取失败' + err)
+            )
+
     }
 
     render() {
@@ -39,7 +40,7 @@ class Xiaojiejie extends Component {
                 {/* 11 */}
 
                 <div>
-                    <label htmlFor="demo">{this.state.demo}</label><br/>
+                    <label htmlFor="demo">{this.state.demo}</label><br />
                     <input id="demo" className="input" type="text" value={this.state.inputValue} onChange={this.inputChange.bind(this)}
                         ref={input => this.input = input}
                     />
@@ -59,6 +60,7 @@ class Xiaojiejie extends Component {
                         })
                     }
                 </ul>
+                <Boss></Boss>
             </Fragment>
         )
     }
