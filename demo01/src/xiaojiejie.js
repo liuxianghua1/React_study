@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import axios from 'axios';
 import './style.css'
 import XiaojiejieItem from './XiaojiejieItem'
 /* {/* 
@@ -12,16 +13,33 @@ class Xiaojiejie extends Component {
         super(props)
         this.state = {
             inputValue: '',
-            list: ['基础按摩', '精油推背', '盲人按摩']
+            list: ['基础按摩', '精油推背', '盲人按摩'],
+            demo: '11'
         }
     }
+
+    componentDidMount() {
+        axios.get('http://rap2api.taobao.org/app/mock/231871/list')
+        .then(res => {
+            console.log(res)
+            this.setState({
+                demo: res.data.book
+            })
+        }
+        ).catch(err => console.log('获取失败' +err)
+        )
+        
+    }
+
     render() {
         return (
+
             <Fragment>
                 {/*第一次写注释 */}
                 {/* 11 */}
+
                 <div>
-                    <label htmlFor="demo">增加服务</label>
+                    <label htmlFor="demo">{this.state.demo}</label><br/>
                     <input id="demo" className="input" type="text" value={this.state.inputValue} onChange={this.inputChange.bind(this)}
                         ref={input => this.input = input}
                     />
@@ -58,8 +76,6 @@ class Xiaojiejie extends Component {
         this.setState({
             list: [...this.state.list, this.state.inputValue],
             inputValue: ''
-        }, () => {
-            console.log(this.ul.querySelectorAll('li').length);
         })
     }
 
@@ -77,3 +93,4 @@ class Xiaojiejie extends Component {
 }
 
 export default Xiaojiejie
+
